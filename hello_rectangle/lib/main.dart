@@ -1,111 +1,63 @@
+//flutter の画面は全てウィジェットを階層的に組み込んで作られている
+//この組み込み構造を「ウィジェットツリー」と呼ぶ
+
+//flutter のマテリアルデザインによるアプリのUIウィジェットをまとめたパッケージ
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+/* main関数がアプリ起動時に呼び出される処理 */
+//main関数においてrunAppでアプリを起動する
+void main() => runApp(new MyApp());
 
+/*
+ * ウィジェットのクラスはステート(状態を表す値)を持つStatefulWidgetと、
+ * ステートを持たないStatelessWidgetのいずれかを継承して作成する。
+ * 全てのウィジェットはWidgetというクラスのサブクラスである。
+ */
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+
+/* ウィジェットが生成される時に呼び出されるメソッド
+ * BuildContextは、組み込まれたウィジェットに関する機能
+ * (ウィジェットが組み込まれている親や子の情報などに関する機能)
+ * がまとめられている
+ */
+  Widget build(BuildContext context) { 
+    /*
+     * material VS cupertino
+     * デフォルトで生成されるスクリプトでmaterial.dartが読み込まれるように
+     * 設定されていることで、明示的にcupertino.dartを読み込まない限りは
+     * マテリアルデザインベースでUIが構築される
+     */
+    /* MaterialAppインスタンスをreturnすることでマテリアルデザインによる
+     * アプリが表示されるようになる。
+     * 画面に表示されるウィジェットなどを引数に設定
+     */
+    return new MaterialApp(
+      //アプリのタイトル
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'ToDo or NotToDo'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+      //homeに,組み込まれるウィジェットを設定
+      /*
+       * Scaffoldは「足場」の意。アプリ作成の土台となる。
+       * マテリアルデザインの基本的なデザインとレイアウトが組み込まれている。
+       * これに必要なウィジェットを追加することで一般的なデザインのアプリが作成される。
+       */
+      home: Scaffold(
+        //アプリケーションバー
+        appBar: AppBar(
+          title: Text('Hello, Flutter!'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        /*
+         * body
+         * バーの下の空白エリア全体の表示を担当。
+         * 実際のアプリの表示はこのbodyに組み込むと考えて良い。
+         * 実際の開発では多数のウィジェットを配置するコンテナとしての
+         * 働きを持つウィジェットを組み込んで利用することになる。
+         */
+
+        body: Text(
+          'Hello, Flutter World!',
+          style: TextStyle(fontSize: 32.0),
+        ),
+      )
     );
   }
 }
