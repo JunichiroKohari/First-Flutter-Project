@@ -13,13 +13,17 @@ void main() => runApp(new MyApp());
  * ステートを持たないStatelessWidgetのいずれかを継承して作成する。
  * 全てのウィジェットはWidgetというクラスのサブクラスである。
  */
+//Stateless⇨静的な表示
 class MyApp extends StatelessWidget {
+  final title = 'Flutterサンプル';
+  final message = 'サンプルメッセージ';
 
 /* ウィジェットが生成される時に呼び出されるメソッド
  * BuildContextは、組み込まれたウィジェットに関する機能
  * (ウィジェットが組み込まれている親や子の情報などに関する機能)
  * がまとめられている
  */
+  @override
   Widget build(BuildContext context) { 
     /*
      * material VS cupertino
@@ -40,24 +44,35 @@ class MyApp extends StatelessWidget {
        * マテリアルデザインの基本的なデザインとレイアウトが組み込まれている。
        * これに必要なウィジェットを追加することで一般的なデザインのアプリが作成される。
        */
-      home: Scaffold(
-        //アプリケーションバー
-        appBar: AppBar(
-          title: Text('Hello, Flutter!'),
-        ),
-        /*
-         * body
-         * バーの下の空白エリア全体の表示を担当。
-         * 実際のアプリの表示はこのbodyに組み込むと考えて良い。
-         * 実際の開発では多数のウィジェットを配置するコンテナとしての
-         * 働きを持つウィジェットを組み込んで利用することになる。
-         */
+      home: new MyHomePage(
+        title: this.title,
+        message: this.message
+      ),
+    );
+  }
+}
 
-        body: Text(
-          'Hello, Flutter World!',
-          style: TextStyle(fontSize: 32.0),
-        ),
-      )
+class MyHomePage extends StatefulWidget {
+  final String title;
+  final String message;
+
+  MyHomePage({this.title, this.message}): super();
+  
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      
+      body: Text(
+        widget.message,
+        style: TextStyle(fontSize: 32.0),
+      ),
     );
   }
 }
