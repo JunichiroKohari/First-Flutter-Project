@@ -45,9 +45,27 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
+class Data {
+  int _price;
+  String _name;
+
+  Data(this._name, this._price): super();
+
+  @override
+  String toString() {
+    return _name + ':' + _price.toString() + '円';
+  }
+}
+
 //ステートクラス
 class _MyHomePageState extends State<MyHomePage> {
-  String _message;
+
+  static final _data = [
+    Data('Apple', 200),
+    Data('Orange', 150),
+    Data('Peach', 300)
+  ];
+  Data _item;
 
   //プロパティの初期化。Stateクラスに専用のメソッドとして用意されている。
   /**
@@ -59,18 +77,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState(){
     super.initState();
-    _message = 'Hello!';
+    _item = _data[0];
   }
-
-  void _setMessage(){
-
-    //setStateメソッドはステートの更新をステートクラスに知らせる働きをする。
-    //このメソッドに、必要な値の変更処理を用意する。引数は関数。
+  void _setData() {
     setState(() {
-      _message = 'タップしました！';
+      _item = (_data..shuffle()).first;
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -78,14 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       
       body: Text(
-        _message,
+        _item.toString(),
         style: TextStyle(fontSize: 32.0),
       ),
       //フローティングアクションボタン。丸いアイコンを表示したボタン。常に右下に表示される
       //インスタンスを作成するには匿名クラスの要素としてこれらのプロパティを用意しておく。
       floatingActionButton: FloatingActionButton(
         //onPressed:ボタンをタップした時に呼び出されるメソッド
-        onPressed: _setMessage,
+        onPressed: _setData,
         //tooltip:ツールチップとして表示するテキスト
         tooltip: 'set message.',
         //child:このウィジェット内に組み込まれているウィジェット類をまとめたもの
