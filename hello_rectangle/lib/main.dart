@@ -45,12 +45,15 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
+//複雑な値を扱う場合、必要な情報をまとめたクラスとして定義し、利用する
 class Data {
   int _price;
   String _name;
 
   Data(this._name, this._price): super();
 
+  //toStringはDartのObjectクラスに用意されている。
+  //全てのクラスはObjectクラスのサブクラス。
   @override
   String toString() {
     return _name + ':' + _price.toString() + '円';
