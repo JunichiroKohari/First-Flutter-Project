@@ -15,7 +15,6 @@ void main() => runApp(new MyApp());
  */
 //Stateless⇨静的な表示
 class MyApp extends StatelessWidget {
-  final title = 'Flutterサンプル';
 
 /* ウィジェットが生成される時に呼び出されるメソッド
  * BuildContextは、組み込まれたウィジェットに関する機能
@@ -28,9 +27,12 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       //アプリのタイトル
       title: 'Flutter Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       //homeに,組み込まれるウィジェットを設定
       home: new MyHomePage(
-        title: this.title,
+        title: 'Flutterサンプルアプリ',
       ),
     );
   }
@@ -38,53 +40,20 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
 
-  MyHomePage({this.title}): super();
+  MyHomePage({Key key, this.title}): super(key: keys);
   final String title;
   
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-//複雑な値を扱う場合、必要な情報をまとめたクラスとして定義し、利用する
-class Data {
-  int _price;
-  String _name;
-
-  Data(this._name, this._price): super();
-
-  //toStringはDartのObjectクラスに用意されている。
-  //全てのクラスはObjectクラスのサブクラス。
-  @override
-  String toString() {
-    return _name + ':' + _price.toString() + '円';
-  }
-}
-
 //ステートクラス
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
 
-  static final _data = [
-    Data('Apple', 200),
-    Data('Orange', 150),
-    Data('Peach', 300)
-  ];
-  Data _item;
-
-  //プロパティの初期化。Stateクラスに専用のメソッドとして用意されている。
-  /**
-   * initStateは、インスタンスが作成され、ウィジェットのツリー構造への
-   * 組み込みが完了した時点で呼び出される。
-   * コンストラクタではウィジェットツリーが完了していない為にエラーになるような
-   * 処理(他のウィジェットの参照など)もinitStateでは問題なく実行できる。
-   */
-  @override
-  void initState(){
-    super.initState();
-    _item = _data[0];
-  }
-  void _setData() {
+  void _incrementCounter(){
     setState(() {
-      _item = (_data..shuffle()).first;
+      _counter++;
     });
   }
 
@@ -95,15 +64,25 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       
-      body: Text(
-        _item.toString(),
-        style: TextStyle(fontSize: 32.0),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
+            )
+          ],
+        ),
       ),
       //フローティングアクションボタン。丸いアイコンを表示したボタン。常に右下に表示される
       //インスタンスを作成するには匿名クラスの要素としてこれらのプロパティを用意しておく。
       floatingActionButton: FloatingActionButton(
         //onPressed:ボタンをタップした時に呼び出されるメソッド
-        onPressed: _setData,
+        onPressed: _incrementCounter,
         //tooltip:ツールチップとして表示するテキスト
         tooltip: 'set message.',
         //child:このウィジェット内に組み込まれているウィジェット類をまとめたもの
