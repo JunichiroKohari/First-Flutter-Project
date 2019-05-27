@@ -40,7 +40,8 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
 
-  MyHomePage({Key key, this.title}): super(key: keys);
+  //Keyはウィジェットを識別するidのようなもの。自動的に割り当てられる。
+  MyHomePage({Key key, this.title}): super(key: key);
   final String title;
   
   @override
@@ -71,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
+            //Dartでは$変数で変数をリテラルに埋め込むことができる
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.display1,
