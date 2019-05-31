@@ -37,26 +37,23 @@ void main() {
    *     await メソッド();
    *    処理を完了するまで待つ、つまり、非同期処理を無理やり同期処理に変える。
    */
-  testWidgets('hello_rectangle sample test', (WidgetTester tester) async {
+  testWidgets('Counter increments smoke test',
+   (WidgetTester tester) async {
     // ベースとなるウィジェットのインスタンスを作成し、UIを生成させる。
     //この作業が問題なく行えるかチェックする。
     await tester.pumpWidget( new MyApp());
-    //一定時間を置いてフレームにトリガーを送る。トリガーを送ることでウィジェットの描画などが行われる。
+
+    //Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    //Tap the '+' icon and trigger a frame.
+    // tester.tapというメソッドでアイコンをタップ。tapは引数で指定したウィジェットをタップする働きをする。そしてpumpでトリガーを送り表示を更新する。これで0だった表示が1に変わる。
+    await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    /**
-     * expect(対象,値)⇨ウィジェットの内容チェックを行う関数
-     * 第一引数の対象が、第二引数の値と同じかどうかを確認する。
-     * 同じなら通過、異なるならエラー
-     * 第一引数に指定する対象はfindメソッドで取得するのが一般的
-     */
-    /**
-     * 例えば、Textウィジェットならfind.text(テキスト)で取り出す
-     * find.text('hello')⇨helloと表示されているウィジェットを取り出せる
-     * findは、Finderというクラスのインスタンスとして検索したウィジェットの情報を返す
-     */
-    //findsOneWidgetは、一つのウィジェットが見つかったことを示す定数
-    expect(find.text('0'), findsOneWidget);
-    expect(find.byIcon(Icons.add), findsOneWidget);
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
   });
 }
