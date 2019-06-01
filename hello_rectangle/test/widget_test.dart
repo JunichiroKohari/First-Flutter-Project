@@ -4,6 +4,24 @@
 // utility that Flutter provides. For example, you can send tap and scroll
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
+/**
+ * flutter の操作は、「ウィジェットの操作(pump,test)」と「状態のチェックの組み合わせ(expect)」で行う。
+ * ウィジェットは操作する処理を実行し、pumpでトリガーを送ることで、実際に操作したのと同じ状態で再現できる。
+ * こうして操作を行い、その結果どのように状態が変化したのかをexpectで確認する、を繰り返す。
+ */
+/**
+ * 主なWidgetTesterの操作メソッド
+ * ・テキスト入力 enterText([finder], [String]);
+ * ・前のページに戻る pageback();
+ * ・トリガーを送る pump();
+ * ・ウィジェットを実行する pumpWidget([Widget]);
+ * ・ドラッグする drag([finder], [offset]); dragFrom([finder], [offset]);
+ * ・長押し longPress([finder]); longPressAt([Offset]);
+ * ・タップする tap([finder]); tapAt([Offset]);
+ * 
+ * Offsetについて Offset([x], [y]); 引数はdouble
+ * 位置を扱う際の基本のクラス。縦横の位置を指定してインスタンスを作成して使う。
+ */
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
