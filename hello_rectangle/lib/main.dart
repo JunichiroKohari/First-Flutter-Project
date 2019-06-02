@@ -1,95 +1,47 @@
-//flutter の画面は全てウィジェットを階層的に組み込んで作られている
-//この組み込み構造を「ウィジェットツリー」と呼ぶ
-
-//flutter のマテリアルデザインによるアプリのUIウィジェットをまとめたパッケージ
 import 'package:flutter/material.dart';
 
-/* main関数がアプリ起動時に呼び出される処理 */
-//main関数においてrunAppでアプリを起動する
-void main() => runApp(new MyApp());
-
-/*
- * ウィジェットのクラスはステート(状態を表す値)を持つStatefulWidgetと、
- * ステートを持たないStatelessWidgetのいずれかを継承して作成する。
- * 全てのウィジェットはWidgetというクラスのサブクラスである。
- */
-//Stateless⇨静的な表示
+void main() {
+  runApp(new MyApp());
+}
 class MyApp extends StatelessWidget {
 
-/* ウィジェットが生成される時に呼び出されるメソッド
- * BuildContextは、組み込まれたウィジェットに関する機能
- * (ウィジェットが組み込まれている親や子の情報などに関する機能)
- * がまとめられている
- */
   @override
-  Widget build(BuildContext context) { 
-    
+  Widget build(BuildContext context) {
     return new MaterialApp(
-      //アプリのタイトル
-      title: 'Flutter Demo',
+      title: 'Generated App',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF2196f3),
+        accentColor: const Color(0xFF2196f3),
+        canvasColor: const Color(0xFFfafafa),
       ),
-      //homeに,組み込まれるウィジェットを設定
-      home: new MyHomePage(
-        title: 'Flutterサンプルアプリ',
-      ),
+      home: new MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-
-  //Keyはウィジェットを識別するidのようなもの。自動的に割り当てられる。
-  MyHomePage({Key key, this.title}): super(key: key);
-  final String title;
-  
+  MyHomePage({Key key}) : super(key: key);
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-//ステートクラス
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter(){
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            //Dartでは$変数で変数をリテラルに埋め込むことができる
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            )
-          ],
-        ),
-      ),
-      //フローティングアクションボタン。丸いアイコンを表示したボタン。常に右下に表示される
-      //インスタンスを作成するには匿名クラスの要素としてこれらのプロパティを用意しておく。
-      floatingActionButton: FloatingActionButton(
-        //onPressed:ボタンをタップした時に呼び出されるメソッド
-        onPressed: _incrementCounter,
-        //tooltip:ツールチップとして表示するテキスト
-        tooltip: 'set message.',
-        //child:このウィジェット内に組み込まれているウィジェット類をまとめたもの
-        child: Icon(Icons.star),
-      ),
-    );
-  }
+    @override
+    Widget build(BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('App Name'),
+          ),
+        body:
+          new Text(
+          "Hello Flutter!",
+            style: new TextStyle(fontSize:32.0,
+            color: const Color(0xFF000000),
+            fontWeight: FontWeight.w700,
+            fontFamily: "Roboto"),
+          ),
+    
+      );
+    }
 }
