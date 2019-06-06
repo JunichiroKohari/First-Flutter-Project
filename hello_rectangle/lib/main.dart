@@ -10,9 +10,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Generated App',
       theme: new ThemeData(
-        primarySwatch: Colors.pink,
-        primaryColor: const Color(0xFFe91e63),
-        accentColor: const Color(0xFFe91e63),
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF2196f3),
+        accentColor: const Color(0xFF2196f3),
         canvasColor: const Color(0xFFfafafa),
       ),
       home: new MyHomePage(),
@@ -34,22 +34,16 @@ class _MyHomePageState extends State<MyHomePage> {
           title: new Text('App Name'),
           ),
         body:
-          new Text(
-          "Hello Flutter!",
-          // TextStyle : テキストのスタイルを扱うクラス
-            style: new TextStyle(fontSize:32.0,
-            /**
-             * Colorについて
-             * ・定数扱いにしてconst Colorを使うと、例えば同じ値のColorを作成するような場合、同じインスタンスが
-             * 参照されるようになり、メモリが節約できる。Colorでは、インスタンスを作成する際にはnewではなく、
-             * constを使うのが一般的。
-             * ・ARGBの値を個別に引数で指定してインスタンスを作成するメソッドも用意されている。
-             * Color.fromARGB([A], [R], [G], [B])  引数には各値0~255を整数で指定。
-             * ・Colorsクラスのプロパティを使って色を指定するという方法もある。ex. Colors.blue
-             */
-            color: const Color(0xFF000000),
-            fontWeight: FontWeight.w700,
-            fontFamily: "Roboto"),
+          new Center(
+            child:
+              new Text(
+              "qWerty1",
+                style: new TextStyle(fontSize:12.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w200,
+                fontFamily: "Roboto"),
+              ),
+    
           ),
     
       );
