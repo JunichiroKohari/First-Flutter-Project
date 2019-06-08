@@ -1,0 +1,16 @@
+createdAt: "2019-06-08T14:57:19.028Z"
+updatedAt: "2019-06-08T14:58:46.179Z"
+type: "MARKDOWN_NOTE"
+folder: "341e16d06eddf09dc632"
+title: "markdown practice"
+tags: []
+content: '''
+  # markdown practice
+  ## list 
+  - test
+  - test
+  -入れ子にできない？？？？
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false
